@@ -1,0 +1,92 @@
+<configuration>
+
+<appender name="ROOT_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/root.log</file>
+
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+        <Pattern>
+            [%d{dd-MMM-yyyy HH:mm:ss}] %-5level [%thread] - %msg%n
+        </Pattern>
+    </encoder>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+        <fileNamePattern>logs/root.log.%i</fileNamePattern>
+        <minIndex>1</minIndex>
+        <maxIndex>3</maxIndex>
+    </rollingPolicy>
+
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+        <maxFileSize>100MB</maxFileSize>
+    </triggeringPolicy>
+
+</appender>
+
+<appender name="Processors" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/workers.debug.log</file>
+
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+        <Pattern>
+            [%d{dd-MMM-yyyy HH:mm:ss}] %-5level [%thread] - %msg%n
+        </Pattern>
+    </encoder>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+        <fileNamePattern>logs/workers.debug.log.%i</fileNamePattern>
+        <minIndex>1</minIndex>
+        <maxIndex>3</maxIndex>
+    </rollingPolicy>
+
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+        <maxFileSize>100MB</maxFileSize>
+    </triggeringPolicy>
+
+</appender>
+
+<appender name="MainWorker" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/mainWorker.debug.log</file>
+
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+        <Pattern>
+            [%d{dd-MMM-yyyy HH:mm:ss}] %-5level [%thread] - %msg%n
+        </Pattern>
+    </encoder>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+        <fileNamePattern>logs/mainWorker.debug.log.%i</fileNamePattern>
+        <minIndex>1</minIndex>
+        <maxIndex>3</maxIndex>
+    </rollingPolicy>
+
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+        <maxFileSize>100MB</maxFileSize>
+    </triggeringPolicy>
+</appender>
+
+<logger name="com.processor" level="debug"
+        additivity="false">
+    <appender-ref ref="ROOT_FILE" />
+</logger>
+
+<logger name="com.processor.actors.workers" level="debug"
+        additivity="false">
+
+    <appender-ref ref="Processors" />
+</logger>
+
+<logger name="com.processor.actors.ParseXMLFileToDataBaseActor" level="debug"
+        additivity="false">
+
+    <appender-ref ref="MainWorker" />
+</logger>
+
+<logger name="com.processor.actors.workers.ProcessFilesWorker" level="debug"
+        additivity="false">
+
+    <appender-ref ref="MainWorker" />
+</logger>
+
+<root level="error">
+    <appender-ref ref="ROOT_FILE" />
+</root>
+
+</configuration>
