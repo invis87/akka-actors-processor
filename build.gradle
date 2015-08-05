@@ -8,7 +8,7 @@ sourceCompatibility = 1.7
 version = '1.0'
 
 jar {
-    baseName = 'xml-to-postgre-processor'
+    baseName = 'akka-actors-processor'
     version =  '1.0'
 }
 
